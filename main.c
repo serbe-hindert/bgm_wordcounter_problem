@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#if defined(__GNUC__) && defined(__GNUC_MINOR__) && defined(__GNUC_PATCHLEVEL__)
+#if defined(__GNUC__)
     #include <stdint-gcc.h>
 #else
     #include <stdint.h>
