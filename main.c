@@ -90,7 +90,7 @@ FoundResult* seek(char text[], const size_t textLength, char search[], const siz
 }
 
 int main() {
-    // read file
+    // read file -- change path if necessary @everyone
     FILE *file = fopen("../res/sentences.txt", "r");
     if (file == NULL) {
         perror("UNABLE TO OPEN FILE");
