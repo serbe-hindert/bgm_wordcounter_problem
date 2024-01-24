@@ -10,6 +10,8 @@
 
 
 
+#define FOUNDWORD_COUNT_DEFAULT 8
+
 typedef struct FoundWord {
     uint16_t lineNumber;
     char* lineContent;
@@ -19,8 +21,6 @@ typedef struct FoundResult {
     size_t number;
     FoundWord* foundWords;
 } FoundResult;
-
-#define FOUNDWORD_COUNT_DEFAULT 8
 
 #define IS_LETTER(c) (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
 #define TO_UPPER(c)  (c - (c >= 'a') * 32)
