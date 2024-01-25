@@ -7,7 +7,7 @@
       1. increase line number by one
       2. skip to next iteration
    2. find out the current words word length
-   3. if the word matches the sarch word THEN
+   3. if the word matches the search word THEN
       1. add the word to the tuples
    4. OTHERWISE
       1. increase iteration by word length
