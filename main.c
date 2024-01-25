@@ -25,7 +25,7 @@ typedef struct FoundResult {
 #define IS_LETTER(c) (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
 #define TO_UPPER(c)  (c - (c >= 'a') * 32)
 bool compareWordsAfterSecondLetter(const size_t length, char a[], char b[]);
-void checkAllocFoundWord(const FoundWord *foundword);
+void checkAlloc(const void *allocated);
 
 FoundResult* seek(char text[], const size_t textLength, char search[], const size_t searchLength);
 
@@ -39,9 +39,9 @@ inline bool compareWordsAfterSecondLetter(const size_t length, char a[], char b[
     return true;
 }
 
-void checkAllocFoundWord(const FoundWord *foundword) {
-    if (foundword == NULL) {
-        perror("UNABLE TO ALLOCATE MEMORY FOR FOUNDWORD");
+void checkAlloc(const void *allocated) {
+    if (allocated == NULL) {
+        perror("UNABLE TO ALLOCATE MEMORY");
         exit(1);
     }
 }
@@ -50,7 +50,7 @@ FoundResult* seek(char text[], const size_t textLength, char search[], const siz
     size_t wordTuplesCount = 0;
     size_t wordTuplesMax = FOUNDWORD_COUNT_DEFAULT;
     FoundWord *wordTuples = malloc(FOUNDWORD_COUNT_DEFAULT * sizeof(FoundWord));
-    checkAllocFoundWord(wordTuples);
+    checkAlloc(wordTuples);
     
     uint16_t lineNumber = 0;
     for (size_t i = 0; i < textLength; i++) {
@@ -68,11 +68,14 @@ FoundResult* seek(char text[], const size_t textLength, char search[], const siz
             if (wordTuplesCount == wordTuplesMax) {
                 wordTuplesMax *= 2;
                 wordTuples = realloc(wordTuples, wordTuplesMax * sizeof(FoundWord));
-                checkAllocFoundWord(wordTuples);
+                checkAlloc(wordTuples);
             }
             wordTuples[wordTuplesCount].lineNumber = lineNumber;
-            wordTuples[wordTuplesCount].lineContent = memcpy(
-                malloc(wordLength * sizeof(char)),
+
+            wordTuples[wordTuplesCount].lineContent = malloc(wordLength * sizeof(char));
+            checkAlloc(wordTuples[wordTuplesCount].lineContent);
+            memcpy(
+                wordTuples[wordTuplesCount].lineContent,
                 text + i * sizeof(char),
                 wordLength * sizeof(char)
             );
